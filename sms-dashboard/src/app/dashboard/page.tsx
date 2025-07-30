@@ -47,6 +47,13 @@ export default async function DashboardPage() {
   const totalProfit = metrics.reduce((sum, m) => sum + m.profit, 0)
   const avgMargin = totalRevenue > 0 ? totalProfit / totalRevenue : 0
   
+  // Calculate total messages sent
+  const totalMessagesSent = metrics.reduce((sum, m) => sum + (m.total_messages_sent || 0), 0)
+  
+  // Calculate eCPM metrics (effective cost/revenue per thousand messages)
+  const sendCostECPM = totalMessagesSent > 0 ? (totalCost / totalMessagesSent) * 1000 : 0
+  const revenueECPM = totalMessagesSent > 0 ? (totalRevenue / totalMessagesSent) * 1000 : 0
+  
   return (
     <div className="space-y-8">
       <div className="mb-8">
@@ -57,7 +64,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-green-100/50 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
@@ -111,6 +118,32 @@ export default async function DashboardPage() {
             </div>
           </div>
         </div>
+        
+        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-amber-100/50 p-6 hover:shadow-xl transition-all duration-300">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-slate-600">Send Cost eCPM</p>
+              <p className="text-3xl font-bold text-amber-700 mt-1">{formatCurrency(sendCostECPM)}</p>
+              <p className="text-xs text-slate-500 mt-1">per 1,000 messages</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center">
+              <DollarSign className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100/50 p-6 hover:shadow-xl transition-all duration-300">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-slate-600">Revenue eCPM</p>
+              <p className="text-3xl font-bold text-emerald-700 mt-1">{formatCurrency(revenueECPM)}</p>
+              <p className="text-xs text-slate-500 mt-1">per 1,000 messages</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Data Table */}
@@ -158,6 +191,12 @@ export default async function DashboardPage() {
                     Messages
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    Cost eCPM
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    Rev eCPM
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -185,11 +224,21 @@ export default async function DashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       {metric.message_count > 0 ? (
                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
-                          {metric.message_count} messages
+                          {metric.total_messages_sent?.toLocaleString() || 0} sent
                         </span>
                       ) : (
                         <span className="text-slate-400">No messages</span>
                       )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-700 font-semibold">
+                      {metric.total_messages_sent && metric.total_messages_sent > 0 
+                        ? formatCurrency((metric.sms_cost / metric.total_messages_sent) * 1000)
+                        : '-'}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-emerald-700 font-semibold">
+                      {metric.total_messages_sent && metric.total_messages_sent > 0 
+                        ? formatCurrency((metric.revenue / metric.total_messages_sent) * 1000)
+                        : '-'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <Link 
