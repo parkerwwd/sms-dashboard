@@ -53,19 +53,19 @@ function formatPercentage(value: number): string {
   }).format(value)
 }
 
-export default async function MessagesPage({ 
-  params 
-}: { 
-  params: Promise<{ id: string }> 
-}) {
-  const { id } = await params
-  const dailyMetric = await getDailyMetric(id)
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+
+export default async function MessagesPage(props: PageProps) {
+  const params = await props.params
+  const dailyMetric = await getDailyMetric(params.id)
   
   if (!dailyMetric) {
     notFound()
   }
   
-  const messages = await getMessages(id)
+  const messages = await getMessages(params.id)
   
   // Calculate totals
   const totalSent = messages.reduce((sum, msg) => sum + msg.num_sent, 0)
