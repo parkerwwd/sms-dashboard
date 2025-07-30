@@ -1,8 +1,8 @@
 {
   "framework": "nextjs",
-  "rootDirectory": "sms-dashboard",
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
+  "buildCommand": "cd sms-dashboard && npm run build",
+  "devCommand": "cd sms-dashboard && npm run dev",
+  "installCommand": "cd sms-dashboard && npm install",
+  "outputDirectory": "sms-dashboard/.next",
   "regions": ["iad1"]
 } 
