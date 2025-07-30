@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       // Format date as YYYY-MM-DD
       const formattedDate = new Date(date).toISOString().split('T')[0]
 
-      // Generate report using the simplified approach
+      // Generate report with page-level data
       const reportResponse = await (adsense as any).accounts.reports.generate({
         name: `${accountName}/reports`,
         dateRange: 'CUSTOM',
@@ -67,29 +67,62 @@ export async function POST(request: NextRequest) {
         'endDate.year': new Date(date).getFullYear(),
         'endDate.month': new Date(date).getMonth() + 1,
         'endDate.day': new Date(date).getDate(),
-        metrics: 'ESTIMATED_EARNINGS',
-        dimensions: 'DOMAIN_NAME',
+        metrics: ['ESTIMATED_EARNINGS', 'PAGE_VIEWS', 'IMPRESSIONS', 'CLICKS'],
+        dimensions: ['PAGE_PATH', 'DOMAIN_NAME'],
+        orderBy: '-ESTIMATED_EARNINGS',
+        limit: 100 // Get top 100 pages by earnings
       })
 
-      // Calculate total revenue
+      // Process page-level data
       const rows = reportResponse.data?.rows || []
       let totalRevenue = 0
-      const breakdown: any[] = []
+      const domainBreakdown: Record<string, number> = {}
+      const pageBreakdown: any[] = []
 
       rows.forEach((row: any) => {
         const cells = row.cells || []
-        if (cells.length >= 2) {
-          const domain = cells[0]?.value || 'Unknown'
-          const earnings = parseFloat(cells[1]?.value || '0')
+        if (cells.length >= 6) {
+          const pagePath = cells[0]?.value || 'Unknown'
+          const domain = cells[1]?.value || 'Unknown'
+          const earnings = parseFloat(cells[2]?.value || '0')
+          const pageViews = parseInt(cells[3]?.value || '0')
+          const impressions = parseInt(cells[4]?.value || '0')
+          const clicks = parseInt(cells[5]?.value || '0')
+          
           totalRevenue += earnings
-          breakdown.push({ domain, earnings })
+          
+          // Aggregate by domain
+          domainBreakdown[domain] = (domainBreakdown[domain] || 0) + earnings
+          
+          // Store page-level data
+          pageBreakdown.push({
+            pagePath,
+            domain,
+            earnings,
+            pageViews,
+            impressions,
+            clicks,
+            fullUrl: `https://${domain}${pagePath}`
+          })
         }
       })
+
+      // Convert domain breakdown to array
+      const breakdown = Object.entries(domainBreakdown).map(([domain, earnings]) => ({
+        domain,
+        earnings
+      }))
 
       return NextResponse.json({ 
         revenue: totalRevenue,
         breakdown,
-        date: formattedDate
+        pageBreakdown,
+        date: formattedDate,
+        summary: {
+          totalPages: pageBreakdown.length,
+          totalPageViews: pageBreakdown.reduce((sum, p) => sum + p.pageViews, 0),
+          totalClicks: pageBreakdown.reduce((sum, p) => sum + p.clicks, 0)
+        }
       })
     } catch (apiError: any) {
       console.error('AdSense API Error:', apiError.message)
@@ -99,7 +132,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ 
         revenue: 0,
         breakdown: [],
+        pageBreakdown: [],
         date: new Date(date).toISOString().split('T')[0],
+        summary: {
+          totalPages: 0,
+          totalPageViews: 0,
+          totalClicks: 0
+        },
         note: 'AdSense API not fully configured. Returning default values.'
       })
     }

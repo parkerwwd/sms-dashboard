@@ -241,12 +241,20 @@ export default async function DashboardPage() {
                         : '-'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <Link 
-                        href={`/messages/${metric.id}`}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white text-xs font-medium rounded-lg hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200"
-                      >
-                        View Details
-                      </Link>
+                      <div className="flex gap-2">
+                        <Link 
+                          href={`/messages/${metric.id}`}
+                          className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white text-xs font-medium rounded-lg hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200"
+                        >
+                          Messages
+                        </Link>
+                        <Link 
+                          href={`/revenue-analysis/${metric.id}`}
+                          className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xs font-medium rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200"
+                        >
+                          Revenue
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}
