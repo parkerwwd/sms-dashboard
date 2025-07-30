@@ -27,57 +27,55 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex bg-slate-50">
           {/* Sidebar Navigation */}
-          <nav className="w-64 bg-white/80 backdrop-blur-sm shadow-xl border-r border-slate-200/50">
-            <div className="p-6 border-b border-slate-100">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                SMS Profitability Tracker
+          <nav className="w-64 bg-white shadow-lg">
+            <div className="p-6">
+              <h1 className="text-2xl font-bold text-slate-800">
+                SMS Tracker
               </h1>
               <p className="text-sm text-slate-600 mt-1">Profitability Dashboard</p>
             </div>
             
-            <div className="px-4 py-6 space-y-2">
+            <div className="px-4 py-2">
               <Link 
                 href="/dashboard"
-                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 group"
+                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
               >
-                <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="font-medium">Dashboard</span>
+                <Home className="w-5 h-5" />
+                <span>Dashboard</span>
               </Link>
               
               <Link 
                 href="/add"
-                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-green-50 hover:text-green-700 rounded-xl transition-all duration-200 group"
+                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors mt-1"
               >
-                <Plus className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="font-medium">Add Data</span>
+                <Plus className="w-5 h-5" />
+                <span>Add Data</span>
               </Link>
               
               <Link 
                 href="/charts"
-                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-purple-50 hover:text-purple-700 rounded-xl transition-all duration-200 group"
+                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors mt-1"
               >
-                <BarChart3 className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="font-medium">Charts</span>
+                <BarChart3 className="w-5 h-5" />
+                <span>Charts</span>
               </Link>
             </div>
 
             {/* Footer */}
             <div className="absolute bottom-4 left-4 right-4">
-              <div className="text-xs text-slate-500 text-center p-3 bg-slate-50/50 rounded-lg">
+              <div className="text-xs text-slate-500 text-center">
                 Built by Parker @ Worldwide Digital
               </div>
             </div>
           </nav>
 
           {/* Main Content */}
-          <main className="flex-1 p-8 overflow-auto">
-            <div className="max-w-7xl mx-auto">
-              {children}
-            </div>
+          <main className="flex-1 p-8 bg-slate-50">
+            {children}
           </main>
         </div>
       </body>
