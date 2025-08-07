@@ -114,8 +114,8 @@ export default function ChartsPage() {
 
       <div className="space-y-8">
         {/* Profit Over Time */}
-        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Profit Over Time</h2>
+        <div className="bg-white dark:bg-slate-900/80 rounded-lg shadow p-6 border border-slate-200/60 dark:border-slate-800">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-4">Profit Over Time</h2>
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -136,8 +136,8 @@ export default function ChartsPage() {
         </div>
 
         {/* Revenue vs Cost */}
-        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Revenue vs Cost</h2>
+        <div className="bg-white dark:bg-slate-900/80 rounded-lg shadow p-6 border border-slate-200/60 dark:border-slate-800">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-4">Revenue vs Cost</h2>
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -161,8 +161,8 @@ export default function ChartsPage() {
         </div>
 
         {/* Click Rate Distribution */}
-        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Click Rate Trend</h2>
+        <div className="bg-white dark:bg-slate-900/80 rounded-lg shadow p-6 border border-slate-200/60 dark:border-slate-800">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-4">Click Rate Trend</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -182,8 +182,8 @@ export default function ChartsPage() {
         </div>
 
         {/* SMS Volume vs Revenue */}
-        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">SMS Volume vs Revenue</h2>
+        <div className="bg-white dark:bg-slate-900/80 rounded-lg shadow p-6 border border-slate-200/60 dark:border-slate-800">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-4">SMS Volume vs Revenue</h2>
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -211,8 +211,8 @@ export default function ChartsPage() {
         </div>
 
         {/* Cost Breakdown Pie Chart */}
-        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Revenue Breakdown</h2>
+        <div className="bg-white dark:bg-slate-900/80 rounded-lg shadow p-6 border border-slate-200/60 dark:border-slate-800">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-100 mb-4">Revenue Breakdown</h2>
           <div className="flex items-center justify-center">
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>

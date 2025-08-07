@@ -78,7 +78,7 @@ export default async function DashboardPage(props: PageProps) {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-green-100/50 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-green-100/50 dark:border-slate-800 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-600">Total Revenue</p>
@@ -90,7 +90,7 @@ export default async function DashboardPage(props: PageProps) {
           </div>
         </div>
         
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100/50 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100/50 dark:border-slate-800 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-600">Total Cost</p>
@@ -102,7 +102,7 @@ export default async function DashboardPage(props: PageProps) {
           </div>
         </div>
         
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-blue-100/50 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-blue-100/50 dark:border-slate-800 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-600">Total Profit</p>
@@ -120,7 +120,7 @@ export default async function DashboardPage(props: PageProps) {
           </div>
         </div>
         
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100/50 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100/50 dark:border-slate-800 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-600">Avg Margin</p>
@@ -132,7 +132,7 @@ export default async function DashboardPage(props: PageProps) {
           </div>
         </div>
         
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-amber-100/50 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-amber-100/50 dark:border-slate-800 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-600">Send Cost eCPM</p>
@@ -145,7 +145,7 @@ export default async function DashboardPage(props: PageProps) {
           </div>
         </div>
         
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100/50 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100/50 dark:border-slate-800 p-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-600">Revenue eCPM</p>
@@ -160,18 +160,18 @@ export default async function DashboardPage(props: PageProps) {
       </div>
 
       {/* Data Table */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden">
-        <div className="px-6 py-5 border-b border-slate-200/50">
-          <h2 className="text-xl font-semibold text-slate-800">Recent Performance</h2>
+      <div className="bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-800 overflow-hidden">
+        <div className="px-6 py-5 border-b border-slate-200/50 dark:border-slate-800">
+          <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Recent Performance</h2>
         </div>
         
         {metrics.length === 0 ? (
           <div className="p-12 text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-slate-800 dark:to-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
               <TrendingUp className="w-8 h-8 text-blue-600" />
             </div>
-            <h3 className="text-lg font-medium text-slate-700 mb-2">No data available</h3>
-            <p className="text-slate-500 mb-6">Start by adding your first daily metrics to see your performance.</p>
+            <h3 className="text-lg font-medium text-slate-700 dark:text-slate-200 mb-2">No data available</h3>
+            <p className="text-slate-500 dark:text-slate-400 mb-6">Start by adding your first daily metrics to see your performance.</p>
             <Link 
               href="/add"
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200"
@@ -182,42 +182,42 @@ export default async function DashboardPage(props: PageProps) {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-slate-200/50">
-              <thead className="bg-slate-50/50">
+            <table className="min-w-full divide-y divide-slate-200/50 dark:divide-slate-800/80">
+              <thead className="bg-slate-50/50 dark:bg-slate-900/50">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Date
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Revenue
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     SMS Cost
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Profit
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Margin
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Messages
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Cost eCPM
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Rev eCPM
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white/30 divide-y divide-slate-200/30">
+              <tbody className="bg-white/30 dark:bg-slate-900/40 divide-y divide-slate-200/30 dark:divide-slate-800/60">
                 {metrics.map((metric, index) => (
-                  <tr key={metric.id} className={`hover:bg-white/50 transition-colors ${index % 2 === 0 ? 'bg-white/20' : 'bg-white/10'}`}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
+                  <tr key={metric.id} className={`hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors ${index % 2 === 0 ? 'bg-white/20 dark:bg-slate-900/30' : 'bg-white/10 dark:bg-slate-900/20'}`}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900 dark:text-slate-200">
                       {format(new Date(metric.date), 'MMM dd, yyyy')}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-green-700 font-semibold">
@@ -231,16 +231,16 @@ export default async function DashboardPage(props: PageProps) {
                         {formatCurrency(metric.profit)}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 dark:text-slate-300 font-medium">
                       {formatPercentage(metric.margin)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       {metric.message_count > 0 ? (
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-800">
                           {metric.total_messages_sent?.toLocaleString() || 0} sent
                         </span>
                       ) : (
-                        <span className="text-slate-400">No messages</span>
+                        <span className="text-slate-400 dark:text-slate-500">No messages</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-700 font-semibold">
