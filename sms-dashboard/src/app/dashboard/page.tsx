@@ -2,18 +2,22 @@ import { createClient } from '@/lib/supabase/server'
 import { DailyMetricsSummary } from '@/types'
 import { format, subDays } from 'date-fns'
 import { DollarSign, TrendingUp, TrendingDown, Eye, Plus } from 'lucide-react'
+import DateRangeControls from '@/components/DateRangeControls'
 import Link from 'next/link'
 
-async function getDailyMetrics(): Promise<DailyMetricsSummary[]> {
+async function getDailyMetrics(start?: string, end?: string): Promise<DailyMetricsSummary[]> {
   const supabase = await createClient()
-  
   const thirtyDaysAgo = format(subDays(new Date(), 30), 'yyyy-MM-dd')
   
-  const { data, error } = await supabase
+  let query = supabase
     .from('daily_metrics_summary')
     .select('*')
-    .gte('date', thirtyDaysAgo)
     .order('date', { ascending: false })
+  const startDate = start || thirtyDaysAgo
+  const endDate = end || undefined
+  if (startDate) query = query.gte('date', startDate)
+  if (endDate) query = query.lte('date', endDate)
+  const { data, error } = await query
   
   if (error) {
     console.error('Error fetching daily metrics:', error)
@@ -38,8 +42,13 @@ function formatPercentage(value: number): string {
   }).format(value)
 }
 
-export default async function DashboardPage() {
-  const metrics = await getDailyMetrics()
+type PageProps = {
+  searchParams: Promise<{ start?: string; end?: string }>
+}
+
+export default async function DashboardPage(props: PageProps) {
+  const { start, end } = await props.searchParams
+  const metrics = await getDailyMetrics(start, end)
   
   // Calculate KPIs
   const totalRevenue = metrics.reduce((sum, m) => sum + m.revenue, 0)
@@ -60,7 +69,11 @@ export default async function DashboardPage() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
           Dashboard
         </h1>
-        <p className="text-slate-600 mt-2 text-lg">Last 30 days performance</p>
+        <p className="text-slate-600 mt-2 text-lg">Performance overview</p>
+        <div className="mt-4">
+          {/* Client controls to set date range and export */}
+          <DateRangeControls />
+        </div>
       </div>
 
       {/* KPI Cards */}

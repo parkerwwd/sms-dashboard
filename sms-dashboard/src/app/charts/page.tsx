@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { DailyMetricsSummary } from '@/types'
 import { format, subDays } from 'date-fns'
+import DateRangePicker from '@/components/DateRangePicker'
 import {
   LineChart,
   Line,
@@ -26,20 +27,21 @@ import {
 export default function ChartsPage() {
   const [metrics, setMetrics] = useState<DailyMetricsSummary[]>([])
   const [loading, setLoading] = useState(true)
+  const [start, setStart] = useState<string>(format(subDays(new Date(), 30), 'yyyy-MM-dd'))
+  const [end, setEnd] = useState<string>(format(new Date(), 'yyyy-MM-dd'))
 
   useEffect(() => {
-    fetchMetrics()
-  }, [])
+    fetchMetrics(start, end)
+  }, [start, end])
 
-  const fetchMetrics = async () => {
+  const fetchMetrics = async (startDate?: string, endDate?: string) => {
     const supabase = createClient()
-    const thirtyDaysAgo = format(subDays(new Date(), 30), 'yyyy-MM-dd')
-    
-    const { data, error } = await supabase
-      .from('daily_metrics_summary')
-      .select('*')
-      .gte('date', thirtyDaysAgo)
-      .order('date', { ascending: true })
+    let query = supabase.from('daily_metrics_summary').select('*').order('date', { ascending: true })
+    const startBound = startDate || format(subDays(new Date(), 30), 'yyyy-MM-dd')
+    const endBound = endDate
+    if (startBound) query = query.gte('date', startBound)
+    if (endBound) query = query.lte('date', endBound)
+    const { data, error } = await query
     
     if (error) {
       console.error('Error fetching metrics:', error)
@@ -101,13 +103,18 @@ export default function ChartsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Analytics & Charts</h1>
-        <p className="text-gray-600 mt-2">Visual insights into your SMS campaign performance</p>
+        <div className="flex items-start justify-between gap-4 flex-col md:flex-row">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-slate-100">Analytics & Charts</h1>
+            <p className="text-gray-600 dark:text-slate-400 mt-2">Visual insights into your SMS campaign performance</p>
+          </div>
+          <DateRangePicker onChange={(s, e) => { setStart(s); setEnd(e) }} />
+        </div>
       </div>
 
       <div className="space-y-8">
         {/* Profit Over Time */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Profit Over Time</h2>
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={chartData}>
@@ -129,7 +136,7 @@ export default function ChartsPage() {
         </div>
 
         {/* Revenue vs Cost */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Revenue vs Cost</h2>
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={chartData}>
@@ -154,7 +161,7 @@ export default function ChartsPage() {
         </div>
 
         {/* Click Rate Distribution */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Click Rate Trend</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
@@ -175,7 +182,7 @@ export default function ChartsPage() {
         </div>
 
         {/* SMS Volume vs Revenue */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">SMS Volume vs Revenue</h2>
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={chartData}>
@@ -204,7 +211,7 @@ export default function ChartsPage() {
         </div>
 
         {/* Cost Breakdown Pie Chart */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Revenue Breakdown</h2>
           <div className="flex items-center justify-center">
             <ResponsiveContainer width="100%" height={300}>
