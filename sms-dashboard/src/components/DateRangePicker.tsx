@@ -22,14 +22,14 @@ export default function DateRangePicker({ initialDays = 30, onChange }: Props) {
         type="date"
         value={start}
         onChange={(e) => setStart(e.target.value)}
-        className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100"
+        className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100"
       />
       <span className="text-slate-500">to</span>
       <input
         type="date"
         value={end}
         onChange={(e) => setEnd(e.target.value)}
-        className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100"
+        className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100"
       />
     </div>
   )

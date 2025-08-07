@@ -84,7 +84,7 @@ export default async function DashboardPage(props: PageProps) {
               <p className="text-sm font-medium text-slate-600">Total Revenue</p>
               <p className="text-3xl font-bold text-green-700 mt-1">{formatCurrency(totalRevenue)}</p>
             </div>
-            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
+        <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
               <DollarSign className="w-6 h-6 text-white" />
             </div>
           </div>

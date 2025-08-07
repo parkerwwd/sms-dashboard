@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
         <div className="min-h-screen flex">
           {/* Sidebar Navigation */}
-          <nav className="w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-r border-slate-200 dark:border-slate-800 hidden md:flex md:flex-col md:sticky md:top-0 md:h-screen shadow-sm">
+          <nav className="w-64 bg-white dark:bg-slate-900/90 border-r border-slate-200 dark:border-slate-800 hidden md:flex md:flex-col md:sticky md:top-0 md:h-screen shadow-sm">
             <div className="p-6">
               <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">SMS Tracker</h1>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Profitability Dashboard</p>

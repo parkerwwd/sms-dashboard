@@ -43,7 +43,7 @@ export default function DateRangeControls() {
       <DateRangePicker onChange={onChange} initialDays={30} />
       <a
         href={exportHref}
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200/60 bg-white dark:bg-slate-800 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
       >
         <Download className="w-4 h-4" />
         <span className="text-sm">Export CSV</span>
